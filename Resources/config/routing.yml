@@ -1,0 +1,3 @@
+chill_activity_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ChillActivityBundle:Default:index }
