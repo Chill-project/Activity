@@ -3,6 +3,11 @@
     "description": "This bundle extend chill for recording the different activities of the user",
     "type": "symfony-bundle",
     "license": "AGPL-3.0",
+    "keywords" : ["chill", "social work"],
+    "homepage" : "https://github.com/Chill-project/Activity",
+    "autoload": {
+        "psr-4": { "Chill\\ActivityBundle\\": "" }
+    },
     "authors": [
         {
             "name": "Champs-Libres",
