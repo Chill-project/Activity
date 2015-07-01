@@ -1,0 +1,30 @@
+activityreasoncategory:
+    path:     /
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:index" }
+
+activityreasoncategory_show:
+    path:     /{id}/show
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:show" }
+
+activityreasoncategory_new:
+    path:     /new
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:new" }
+
+activityreasoncategory_create:
+    path:     /create
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:create" }
+    methods:  POST
+
+activityreasoncategory_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:edit" }
+
+activityreasoncategory_update:
+    path:     /{id}/update
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:update" }
+    methods:  [POST, PUT]
+
+activityreasoncategory_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ChillActivityBundle:ActivityReasonCategory:delete" }
+    methods:  [POST, DELETE]

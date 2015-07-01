@@ -1,0 +1,30 @@
+activity:
+    path:     /
+    defaults: { _controller: "ChillActivityBundle:Activity:index" }
+
+activity_show:
+    path:     /{id}/show
+    defaults: { _controller: "ChillActivityBundle:Activity:show" }
+
+activity_new:
+    path:     /new
+    defaults: { _controller: "ChillActivityBundle:Activity:new" }
+
+activity_create:
+    path:     /create
+    defaults: { _controller: "ChillActivityBundle:Activity:create" }
+    methods:  POST
+
+activity_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ChillActivityBundle:Activity:edit" }
+
+activity_update:
+    path:     /{id}/update
+    defaults: { _controller: "ChillActivityBundle:Activity:update" }
+    methods:  [POST, PUT]
+
+activity_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ChillActivityBundle:Activity:delete" }
+    methods:  [POST, DELETE]

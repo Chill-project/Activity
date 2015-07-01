@@ -1,0 +1,30 @@
+activityreason:
+    path:     /
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:index" }
+
+activityreason_show:
+    path:     /{id}/show
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:show" }
+
+activityreason_new:
+    path:     /new
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:new" }
+
+activityreason_create:
+    path:     /create
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:create" }
+    methods:  POST
+
+activityreason_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:edit" }
+
+activityreason_update:
+    path:     /{id}/update
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:update" }
+    methods:  [POST, PUT]
+
+activityreason_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ChillActivityBundle:ActivityReason:delete" }
+    methods:  [POST, DELETE]

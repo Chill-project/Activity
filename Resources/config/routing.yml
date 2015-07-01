@@ -1,3 +1,19 @@
+chill_activity_activity:
+    resource: "@ChillActivityBundle/Resources/config/routing/activity.yml"
+    prefix:   /activity
+
+chill_activity_activityreason:
+    resource: "@ChillActivityBundle/Resources/config/routing/activityreason.yml"
+    prefix:   /activityreason
+
+chill_activity_activityreasoncategory:
+    resource: "@ChillActivityBundle/Resources/config/routing/activityreasoncategory.yml"
+    prefix:   /activityreasoncategory
+
+chill_activity_activitytype:
+    resource: "@ChillActivityBundle/Resources/config/routing/activitytype.yml"
+    prefix:   /activitytype
+
 chill_activity_homepage:
     path:     /hello/{name}
     defaults: { _controller: ChillActivityBundle:Default:index }
