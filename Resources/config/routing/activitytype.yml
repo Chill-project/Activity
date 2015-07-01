@@ -1,6 +1,11 @@
 activitytype:
     path:     /{_locale}/admin/activitytype/
     defaults: { _controller: "ChillActivityBundle:ActivityType:index" }
+    options:
+        menus:
+            admin: 
+                order: 2020
+                label: "Activity Types"
 
 chill_activity_activitytype_show:
     path:     /{_locale}/admin/activitytype/{id}/show

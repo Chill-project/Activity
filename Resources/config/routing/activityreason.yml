@@ -1,6 +1,11 @@
 chill_activity_activityreason:
     path:     /{_locale}/admin/activityreason/
     defaults: { _controller: "ChillActivityBundle:ActivityReason:index" }
+    options:
+        menus:
+            admin: 
+                order: 2000
+                label: "Activity Reasons"
 
 chill_activity_activityreason_show:
     path:     /{_locale}/admin/activityreason/{id}/show
