@@ -15,16 +15,16 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('activityreason_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.label }}</td>
                 <td>{{ entity.active }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('activityreason_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('activityreason_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('chill_activity_activityreason_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('activityreason_new') }}">
+            <a href="{{ path('chill_activity_activityreason_new') }}">
                 Create a new entry
             </a>
         </li>

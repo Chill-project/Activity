@@ -44,7 +44,7 @@ class ActivityTypeController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activitytype_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('chill_activity_activitytype_show', array('id' => $entity->getId())));
         }
 
         return $this->render('ChillActivityBundle:ActivityType:new.html.twig', array(
@@ -63,7 +63,7 @@ class ActivityTypeController extends Controller
     private function createCreateForm(ActivityType $entity)
     {
         $form = $this->createForm(new ActivityTypeType(), $entity, array(
-            'action' => $this->generateUrl('activitytype_create'),
+            'action' => $this->generateUrl('chill_activity_activitytype_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +143,7 @@ class ActivityTypeController extends Controller
     private function createEditForm(ActivityType $entity)
     {
         $form = $this->createForm(new ActivityTypeType(), $entity, array(
-            'action' => $this->generateUrl('activitytype_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('chill_activity_activitytype_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +172,7 @@ class ActivityTypeController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activitytype_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chill_activity_activitytype_edit', array('id' => $id)));
         }
 
         return $this->render('ChillActivityBundle:ActivityType:edit.html.twig', array(
@@ -202,7 +202,7 @@ class ActivityTypeController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('activitytype'));
+        return $this->redirect($this->generateUrl('chill_activity_activitytype'));
     }
 
     /**
@@ -215,7 +215,7 @@ class ActivityTypeController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('activitytype_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('chill_activity_activitytype_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

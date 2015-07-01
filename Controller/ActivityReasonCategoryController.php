@@ -44,7 +44,7 @@ class ActivityReasonCategoryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activityreasoncategory_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('chill_activity_activityreasoncategory_show', array('id' => $entity->getId())));
         }
 
         return $this->render('ChillActivityBundle:ActivityReasonCategory:new.html.twig', array(
@@ -63,7 +63,7 @@ class ActivityReasonCategoryController extends Controller
     private function createCreateForm(ActivityReasonCategory $entity)
     {
         $form = $this->createForm(new ActivityReasonCategoryType(), $entity, array(
-            'action' => $this->generateUrl('activityreasoncategory_create'),
+            'action' => $this->generateUrl('chill_activity_activityreasoncategory_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +143,7 @@ class ActivityReasonCategoryController extends Controller
     private function createEditForm(ActivityReasonCategory $entity)
     {
         $form = $this->createForm(new ActivityReasonCategoryType(), $entity, array(
-            'action' => $this->generateUrl('activityreasoncategory_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('chill_activity_activityreasoncategory_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +172,7 @@ class ActivityReasonCategoryController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activityreasoncategory_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chill_activity_activityreasoncategory_edit', array('id' => $id)));
         }
 
         return $this->render('ChillActivityBundle:ActivityReasonCategory:edit.html.twig', array(
@@ -202,7 +202,7 @@ class ActivityReasonCategoryController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('activityreasoncategory'));
+        return $this->redirect($this->generateUrl('chill_activity_activityreasoncategory'));
     }
 
     /**
@@ -215,7 +215,7 @@ class ActivityReasonCategoryController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('activityreasoncategory_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('chill_activity_activityreasoncategory_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

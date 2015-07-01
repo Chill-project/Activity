@@ -1,30 +1,30 @@
-activityreason:
-    path:     /
+chill_activity_activityreason:
+    path:     /{_locale}/admin/activityreason/
     defaults: { _controller: "ChillActivityBundle:ActivityReason:index" }
 
-activityreason_show:
-    path:     /{id}/show
+chill_activity_activityreason_show:
+    path:     /{_locale}/admin/activityreason/{id}/show
     defaults: { _controller: "ChillActivityBundle:ActivityReason:show" }
 
-activityreason_new:
-    path:     /new
+chill_activity_activityreason_new:
+    path:     /{_locale}/admin/activityreason/new
     defaults: { _controller: "ChillActivityBundle:ActivityReason:new" }
 
-activityreason_create:
-    path:     /create
+chill_activity_activityreason_create:
+    path:     /{_locale}/admin/activityreason/create
     defaults: { _controller: "ChillActivityBundle:ActivityReason:create" }
     methods:  POST
 
-activityreason_edit:
-    path:     /{id}/edit
+chill_activity_activityreason_edit:
+    path:     /{_locale}/admin/activityreason/{id}/edit
     defaults: { _controller: "ChillActivityBundle:ActivityReason:edit" }
 
-activityreason_update:
-    path:     /{id}/update
+chill_activity_activityreason_update:
+    path:     /{_locale}/admin/activityreason/{id}/update
     defaults: { _controller: "ChillActivityBundle:ActivityReason:update" }
     methods:  [POST, PUT]
 
-activityreason_delete:
-    path:     /{id}/delete
+chill_activity_activityreason_delete:
+    path:     /{_locale}/admin/activityreason/{id}/delete
     defaults: { _controller: "ChillActivityBundle:ActivityReason:delete" }
     methods:  [POST, DELETE]

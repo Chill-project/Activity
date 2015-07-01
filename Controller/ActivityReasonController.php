@@ -44,7 +44,7 @@ class ActivityReasonController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activityreason_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('chill_activity_activityreason_show', array('id' => $entity->getId())));
         }
 
         return $this->render('ChillActivityBundle:ActivityReason:new.html.twig', array(
@@ -63,7 +63,7 @@ class ActivityReasonController extends Controller
     private function createCreateForm(ActivityReason $entity)
     {
         $form = $this->createForm(new ActivityReasonType(), $entity, array(
-            'action' => $this->generateUrl('activityreason_create'),
+            'action' => $this->generateUrl('chill_activity_activityreason_create'),
             'method' => 'POST',
         ));
 
@@ -143,7 +143,7 @@ class ActivityReasonController extends Controller
     private function createEditForm(ActivityReason $entity)
     {
         $form = $this->createForm(new ActivityReasonType(), $entity, array(
-            'action' => $this->generateUrl('activityreason_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('chill_activity_activityreason_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,7 +172,7 @@ class ActivityReasonController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('activityreason_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chill_activity_activityreason_edit', array('id' => $id)));
         }
 
         return $this->render('ChillActivityBundle:ActivityReason:edit.html.twig', array(
@@ -202,7 +202,7 @@ class ActivityReasonController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('activityreason'));
+        return $this->redirect($this->generateUrl('chill_activity_activityreason'));
     }
 
     /**
@@ -215,7 +215,7 @@ class ActivityReasonController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('activityreason_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('chill_activity_activityreason_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

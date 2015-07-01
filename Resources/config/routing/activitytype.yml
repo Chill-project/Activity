@@ -1,30 +1,30 @@
 activitytype:
-    path:     /
+    path:     /{_locale}/admin/activitytype/
     defaults: { _controller: "ChillActivityBundle:ActivityType:index" }
 
-activitytype_show:
-    path:     /{id}/show
+chill_activity_activitytype_show:
+    path:     /{_locale}/admin/activitytype/{id}/show
     defaults: { _controller: "ChillActivityBundle:ActivityType:show" }
 
-activitytype_new:
-    path:     /new
+chill_activity_activitytype_new:
+    path:     /{_locale}/admin/activitytype/new
     defaults: { _controller: "ChillActivityBundle:ActivityType:new" }
 
-activitytype_create:
-    path:     /create
+chill_activity_activitytype_create:
+    path:     /{_locale}/admin/activitytype/create
     defaults: { _controller: "ChillActivityBundle:ActivityType:create" }
     methods:  POST
 
-activitytype_edit:
-    path:     /{id}/edit
+chill_activity_activitytype_edit:
+    path:     /{_locale}/admin/activitytype/{id}/edit
     defaults: { _controller: "ChillActivityBundle:ActivityType:edit" }
 
-activitytype_update:
-    path:     /{id}/update
+chill_activity_activitytype_update:
+    path:     /{_locale}/admin/activitytype/{id}/update
     defaults: { _controller: "ChillActivityBundle:ActivityType:update" }
     methods:  [POST, PUT]
 
-activitytype_delete:
-    path:     /{id}/delete
+chill_activity_activitytype_delete:
+    path:     /{_locale}/admin/activitytype/{id}/delete
     defaults: { _controller: "ChillActivityBundle:ActivityType:delete" }
     methods:  [POST, DELETE]
