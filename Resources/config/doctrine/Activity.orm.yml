@@ -1,0 +1,30 @@
+Chill\ActivityBundle\Entity\Activity:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        date:
+            type: datetime
+        durationTime:
+            type: time
+        remark:
+            type: text
+        attendee:
+            type: boolean
+    manyToOne:
+        user:
+            targetEntity: Chill\MainBundle\Entity\User
+        scope:
+            targetEntity: Chill\MainBundle\Entity\Scope
+        reason:
+            targetEntity: Chill\ActivityBundle\Entity\ActivityReason
+        type:
+            targetEntity: Chill\ActivityBundle\Entity\ActivityType
+        person:
+            targetEntity: Chill\PersonBundle\Entity\Person
+    lifecycleCallbacks: {  }

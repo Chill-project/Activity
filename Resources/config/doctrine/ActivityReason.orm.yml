@@ -1,0 +1,19 @@
+Chill\ActivityBundle\Entity\ActivityReason:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        label:
+            type: string
+            length: 255
+        active:
+            type: boolean
+    manyToOne:
+        category:
+            targetEntity: Chill\ActivityBundle\Entity\ActivityReasonCategory
+    lifecycleCallbacks: {  }
