@@ -14,5 +14,39 @@
             "email": "info@champs-libres.coop"
         }
     ],
-    "require": {}
+    "require": {
+        "twig/extensions": "^1.2",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/framework-bundle": "~2.7",
+        "symfony/yaml": "~2.7",
+        "symfony/symfony": "~2.7",
+        "doctrine/dbal": "~2.5",
+        "doctrine/orm": "~2.4",
+        "doctrine/common": "~2.4",
+        "doctrine/doctrine-bundle": "~1.2",
+        "chill-project/main": "dev-master@dev",
+        "chill-project/custom-fields": "dev-master@dev",
+        "chill-project/person": "dev-master@dev",
+        "champs-libres/composer-bundle-migration": "~1.0",
+        "doctrine/doctrine-migrations-bundle": "dev-master@dev",
+        "doctrine/migrations": "~1.0@dev"       
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "fzaninotto/faker": "~1",
+        "monolog/monolog": "^1.14",
+        "symfony/monolog-bundle": "^2.7",
+        "sensio/generator-bundle": "^2.5"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "ComposerBundleMigration\\Composer\\Migrations::synchronizeMigrations"
+        ],
+        "post-update-cmd": [
+            "ComposerBundleMigration\\Composer\\Migrations::synchronizeMigrations"
+        ]
+    },
+    "extra": {
+        "app-migrations-dir": "Tests/Fixtures/App/app/DoctrineMigrations"
+    }
 }
