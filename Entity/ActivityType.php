@@ -31,7 +31,7 @@ class ActivityType
     private $id;
 
     /**
-     * @var string
+     * @var array
      */
     private $name;
 
@@ -49,7 +49,7 @@ class ActivityType
     /**
      * Set name
      *
-     * @param string $name
+     * @param array $name
      *
      * @return ActivityType
      */
@@ -63,11 +63,24 @@ class ActivityType
     /**
      * Get name
      *
-     * @return string
+     * @return array | string
      */
-    public function getName()
+    public function getName($locale = null)
     {
-        return $this->name;
+        if ($locale) {
+            if (isset($this->name[$locale])) {
+                return $this->name[$locale];
+            } else {
+                foreach ($this->name as $name) {
+                    if (!empty($name)) {
+                        return $name;
+                    }
+                }
+            }
+            return '';
+        } else {
+            return $this->name;
+        }
     }
 }
 

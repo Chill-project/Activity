@@ -15,9 +15,9 @@ class ActivityReasonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
+            ->add('name', 'translatable_string')
             ->add('active')
-            ->add('category')
+            ->add('category', 'translatable_activity_reason_category')
         ;
     }
     

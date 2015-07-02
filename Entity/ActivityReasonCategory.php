@@ -33,12 +33,18 @@ class ActivityReasonCategory
     /**
      * @var string
      */
-    private $label;
+    private $name;
 
     /**
      * @var boolean
      */
     private $active;
+    
+    
+    public function __toString()
+    {
+        return 'blop';
+    }
 
 
     /**
@@ -52,27 +58,40 @@ class ActivityReasonCategory
     }
 
     /**
-     * Set label
+     * Set name
      *
-     * @param string $label
+     * @param array $name
      *
      * @return ActivityReasonCategory
      */
-    public function setLabel($label)
+    public function setName($name)
     {
-        $this->label = $label;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get label
+     * Get name
      *
-     * @return string
+     * @return array
      */
-    public function getLabel()
+    public function getName($locale = null)
     {
-        return $this->label;
+        if ($locale) {
+            if (isset($this->name[$locale])) {
+                return $this->name[$locale];
+            } else {
+                foreach ($this->name as $name) {
+                    if (!empty($name)) {
+                        return $name;
+                    }
+                }
+            }
+            return '';
+        } else {
+            return $this->name;
+        }
     }
 
     /**

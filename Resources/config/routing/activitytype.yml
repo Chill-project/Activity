@@ -1,4 +1,4 @@
-activitytype:
+chill_activity_activitytype:
     path:     /{_locale}/admin/activitytype/
     defaults: { _controller: "ChillActivityBundle:ActivityType:index" }
     options:

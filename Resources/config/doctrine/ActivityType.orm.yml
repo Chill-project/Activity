@@ -9,6 +9,5 @@ Chill\ActivityBundle\Entity\ActivityType:
                 strategy: AUTO
     fields:
         name:
-            type: string
-            length: 255
+            type: json_array
     lifecycleCallbacks: {  }

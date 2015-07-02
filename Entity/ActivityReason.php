@@ -33,9 +33,9 @@ class ActivityReason
     private $id;
 
     /**
-     * @var string
+     * @var array
      */
-    private $label;
+    private $name;
 
     /**
      * @var ActivityReasonCategory
@@ -59,29 +59,42 @@ class ActivityReason
     }
 
     /**
-     * Set label
+     * Set name
      *
-     * @param string $label
+     * @param array $name
      *
      * @return ActivityReason
      */
-    public function setLabel($label)
+    public function setName($name)
     {
-        $this->label = $label;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get label
+     * Get name
      *
-     * @return string
+     * @return array | string
      */
-    public function getLabel()
+    public function getName($locale = null)
     {
-        return $this->label;
+        if ($locale) {
+            if (isset($this->name[$locale])) {
+                return $this->name[$locale];
+            } else {
+                foreach ($this->name as $name) {
+                    if (!empty($name)) {
+                        return $name;
+                    }
+                }
+            }
+            return '';
+        } else {
+            return $this->name;
+        }
     }
-
+    
     /**
      * Set category
      *
