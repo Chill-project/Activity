@@ -20,10 +20,10 @@ class ActivityType extends AbstractType
             ->add('remark')
             ->add('attendee')
             ->add('user')
-            ->add('scope')
-            ->add('reason')
-            ->add('type')
-            ->add('person')
+            //->add('scope')
+            //->add('reason')
+            //->add('type')
+            //->add('person')
         ;
     }
     

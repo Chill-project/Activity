@@ -1,30 +1,40 @@
-activity:
-    path:     /
-    defaults: { _controller: "ChillActivityBundle:Activity:index" }
+chill_activity_activity_list:
+    path:     /{_locale}/person/{person_id}/activity/
+    defaults: { _controller: "ChillActivityBundle:Activity:list" }
+    options:
+        menus:
+            person:
+                order: 201
+                label: Activity list
 
-activity_show:
-    path:     /{id}/show
+chill_activity_activity_show:
+    path:     /{_locale}/person/{person_id}/activity/{id}/show
     defaults: { _controller: "ChillActivityBundle:Activity:show" }
 
-activity_new:
-    path:     /new
+chill_activity_activity_new:
+    path:     /{_locale}/person/{person_id}/activity/new
     defaults: { _controller: "ChillActivityBundle:Activity:new" }
+    options:
+        menus:
+            person:
+                order: 200
+                label: Add an activity
 
-activity_create:
-    path:     /create
+chill_activity_activity_create:
+    path:     /{_locale}/person/{person_id}/activity/create
     defaults: { _controller: "ChillActivityBundle:Activity:create" }
     methods:  POST
 
-activity_edit:
-    path:     /{id}/edit
+chill_activity_activity_edit:
+    path:     /{_locale}/person/{person_id}/activity/{id}/edit
     defaults: { _controller: "ChillActivityBundle:Activity:edit" }
 
-activity_update:
-    path:     /{id}/update
+chill_activity_activity_update:
+    path:     /{_locale}/person/{person_id}/activity/{id}/update
     defaults: { _controller: "ChillActivityBundle:Activity:update" }
     methods:  [POST, PUT]
 
-activity_delete:
-    path:     /{id}/delete
+chill_activity_activity_delete:
+    path:     /{_locale}/person/{person_id}/activity/{id}/delete
     defaults: { _controller: "ChillActivityBundle:Activity:delete" }
     methods:  [POST, DELETE]

@@ -1,6 +1,6 @@
 chill_activity_activity:
     resource: "@ChillActivityBundle/Resources/config/routing/activity.yml"
-    prefix:   /activity
+    prefix:   /
 
 chill_activity_activityreason:
     resource: "@ChillActivityBundle/Resources/config/routing/activityreason.yml"

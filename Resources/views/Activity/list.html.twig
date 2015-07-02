@@ -1,0 +1,67 @@
+{#
+ * Copyright (C) 2014, Champs Libres Cooperative SCRLFS, <http://www.champs-libres.coop>
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#}
+{% extends "ChillPersonBundle::layout.html.twig"  %}
+
+{% set activeRouteKey = 'chill_activity_activity_list' %}
+
+{% block title %}{{ 'Activity list' |trans }}{% endblock title %}
+
+{% block personcontent %}
+    <h1>Activity list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Durationtime</th>
+                <th>Remark</th>
+                <th>Attendee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activity in activities %}
+            <tr>
+                <td><a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">{{ activity.id }}</a></td>
+                <td>{% if activity.date %}{{ activity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ activity.durationTime }}</td>
+                <td>{{ activity.remark }}</td>
+                <td>{{ activity.attendee }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('chill_activity_activity_edit', { 'id': activity.id, 'person_id': person.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('chill_activity_activity_new', {'person_id': person.id}) }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+{% endblock %}
