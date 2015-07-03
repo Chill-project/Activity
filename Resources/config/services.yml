@@ -1,7 +1,17 @@
 services:
-   chill.activity.form.type.translatableactivityreasoncategory:
+    chill.activity.form.type.translatableactivityreasoncategory:
         class: Chill\ActivityBundle\Form\Type\TranslatableActivityReasonCategory
         arguments:
             - "@request_stack"
         tags:
             - { name: form.type, alias: translatable_activity_reason_category }
+            
+    chill.activity.form.type.activity:
+        class: Chill\ActivityBundle\Form\ActivityType
+        arguments:
+            - "@security.token_storage"
+            - "@chill.main.security.authorization.helper"
+            - "@doctrine.orm.entity_manager"
+            - "@chill.main.helper.translatable_string"
+        tags:
+            - { name: form.type, alias: chill_activitybundle_activity }

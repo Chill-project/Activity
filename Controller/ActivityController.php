@@ -27,6 +27,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Chill\ActivityBundle\Entity\Activity;
 use Chill\ActivityBundle\Form\ActivityType;
+use Symfony\Component\Security\Core\Role\Role;
+use Chill\PersonBundle\Entity\Person;
 
 /**
  * Activity controller.
@@ -59,6 +61,12 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         
+        /**if ($person === NULL) {
+            throw $this->createNotFoundException('person not found');
+        }*/
+        
+        $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
+        
         $entity = new Activity();
         $form = $this->createCreateForm($entity, $person);
         $form->handleRequest($request);
@@ -87,12 +95,16 @@ class ActivityController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Activity $entity, $person)
+    private function createCreateForm(Activity $entity, Person $person)
     {
-        $form = $this->createForm(new ActivityType(), $entity, array(
-            'action' => $this->generateUrl('chill_activity_activity_create', ['person_id' => $person->getId()]),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm('chill_activitybundle_activity', $entity, 
+              array(
+                'action' => $this->generateUrl('chill_activity_activity_create', ['person_id' => $person->getId()]),
+                'method' => 'POST',
+                'center' => $person->getCenter(),
+                'role'   => new Role('CHILL_ACTIVITY_CREATE')
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
