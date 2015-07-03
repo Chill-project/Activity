@@ -42,7 +42,7 @@ class Version20150701091248 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE ActivityReason_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE ActivityReasonCategory_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE ActivityType_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE Activity (id INT NOT NULL, user_id INT DEFAULT NULL, scope_id INT DEFAULT NULL, reason_id INT DEFAULT NULL, type_id INT DEFAULT NULL, person_id INT DEFAULT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, durationTime TIME(0) WITHOUT TIME ZONE NOT NULL, remark TEXT NOT NULL, attendee BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE Activity (id INT NOT NULL, user_id INT DEFAULT NULL, scope_id INT DEFAULT NULL, reason_id INT DEFAULT NULL, type_id INT DEFAULT NULL, person_id INT DEFAULT NULL, date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, durationTime TIME(0) WITHOUT TIME ZONE NOT NULL, remark TEXT NOT NULL, attendee BOOLEAN, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_55026B0CA76ED395 ON Activity (user_id)');
         $this->addSql('CREATE INDEX IDX_55026B0C682B5931 ON Activity (scope_id)');
         $this->addSql('CREATE INDEX IDX_55026B0C59BB1592 ON Activity (reason_id)');

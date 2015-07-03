@@ -11,11 +11,11 @@
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
+                <td>{{ entity.date|localizeddate('long', 'none') }}</td>
             </tr>
             <tr>
                 <th>Durationtime</th>
-                <td>{{ entity.durationTime }}</td>
+                <td>{{ entity.durationTime|localizeddate('long', 'none') }}</td>
             </tr>
             <tr>
                 <th>Remark</th>

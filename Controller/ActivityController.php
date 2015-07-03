@@ -61,18 +61,23 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         
-        /**if ($person === NULL) {
+        if ($person === NULL) {
             throw $this->createNotFoundException('person not found');
-        }*/
+        }
         
         $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
         
         $entity = new Activity();
+        $entity->setPerson($person);
         $form = $this->createCreateForm($entity, $person);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            
+            $this->denyAccessUnlessGranted('CHILL_ACTIVITY_CREATE', $entity, 
+                    'creation of this activity not allowed');
+            
             $em->persist($entity);
             $em->flush();
 
@@ -95,13 +100,15 @@ class ActivityController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Activity $entity, Person $person)
+    private function createCreateForm(Activity $entity)
     {
         $form = $this->createForm('chill_activitybundle_activity', $entity, 
               array(
-                'action' => $this->generateUrl('chill_activity_activity_create', ['person_id' => $person->getId()]),
+                'action' => $this->generateUrl('chill_activity_activity_create', [
+                    'person_id' => $entity->getPerson()->getId(),
+                    ]),
                 'method' => 'POST',
-                'center' => $person->getCenter(),
+                'center' => $entity->getCenter(),
                 'role'   => new Role('CHILL_ACTIVITY_CREATE')
             )
         );
@@ -120,9 +127,18 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         
+        if ($person === NULL){
+            throw $this->createNotFoundException('Person not found');
+        }
+        
+        $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
+        
         $entity = new Activity();
-        $entity->setUser($this->get('security.context')->getToken()->getUser());
+        $entity->setUser($this->get('security.token_storage')->getToken()->getUser());
+        $entity->setPerson($person);
         $entity->setDate(new \DateTime('now'));
+        
+        $this->denyAccessUnlessGranted('CHILL_ACTIVITY_CREATE', $entity);
         
         $form   = $this->createCreateForm($entity, $person);
 
@@ -141,16 +157,25 @@ class ActivityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
+        
+        if (!$person) {
+            throw $this->createNotFoundException('person not found');
+        }
+        
+        $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
 
         $entity = $em->getRepository('ChillActivityBundle:Activity')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Activity entity.');
         }
+        
+        $this->denyAccessUnlessGranted('CHILL_ACTIVITY_SEE', $entity);
 
         $deleteForm = $this->createDeleteForm($id, $person);
 
         return $this->render('ChillActivityBundle:Activity:show.html.twig', array(
+            'person'      => $person,
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -164,21 +189,29 @@ class ActivityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
+        
+        if (!$person) {
+            throw $this->createNotFoundException('person not found');
+        }
+        
+        $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
 
         $entity = $em->getRepository('ChillActivityBundle:Activity')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Activity entity.');
         }
+        
+        $this->denyAccessUnlessGranted('CHILL_ACTIVITY_UPDATE', $entity);
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id, $person);
 
         return $this->render('ChillActivityBundle:Activity:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'person' => $$person
+            'person' => $person
         ));
     }
 
@@ -191,9 +224,15 @@ class ActivityController extends Controller
     */
     private function createEditForm(Activity $entity)
     {
-        $form = $this->createForm(new ActivityType(), $entity, array(
-            'action' => $this->generateUrl('chill_activity_activity_update', array('id' => $entity->getId())),
+        $form = $this->createForm('chill_activitybundle_activity', $entity, array(
+            'action' => $this->generateUrl('chill_activity_activity_update', 
+                    array(
+                        'id' => $entity->getId(), 
+                        'person_id' => $entity->getPerson()->getId()
+                )),
             'method' => 'PUT',
+            'center' => $entity->getCenter(),
+            'role'   => new Role('CHILL_ACTIVITY_UPDATE')
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -213,6 +252,8 @@ class ActivityController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Activity entity.');
         }
+        
+        $this->denyAccessUnlessGranted('CHILL_ACTIVITY_UPDATE', $entity);
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
@@ -246,6 +287,8 @@ class ActivityController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Activity entity.');
             }
+            
+            $this->denyAccessUnlessGranted('CHILL_ACTIVITY_UPDATE', $entity);
 
             $em->remove($entity);
             $em->flush();
