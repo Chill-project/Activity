@@ -99,7 +99,7 @@ class Activity
      *
      * @return Activity
      */
-    public function setUserr(User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
 

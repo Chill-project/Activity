@@ -68,7 +68,9 @@ class ActivityController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('chill_activity_activity_show', array('id' => $entity->getId())));
+            return $this->redirect(
+                $this->generateUrl('chill_activity_activity_show',
+                array('id' => $entity->getId(), 'person_id' => $person_id)));
         }
 
         return $this->render('ChillActivityBundle:Activity:new.html.twig', array(
@@ -107,6 +109,9 @@ class ActivityController extends Controller
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         
         $entity = new Activity();
+        $entity->setUser($this->get('security.context')->getToken()->getUser());
+        $entity->setDate(new \DateTime('now'));
+        
         $form   = $this->createCreateForm($entity, $person);
 
         return $this->render('ChillActivityBundle:Activity:new.html.twig', array(
@@ -120,9 +125,10 @@ class ActivityController extends Controller
      * Finds and displays a Activity entity.
      *
      */
-    public function showAction($id)
+    public function showAction($person_id, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
 
         $entity = $em->getRepository('ChillActivityBundle:Activity')->find($id);
 
@@ -130,7 +136,7 @@ class ActivityController extends Controller
             throw $this->createNotFoundException('Unable to find Activity entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id, $person);
 
         return $this->render('ChillActivityBundle:Activity:show.html.twig', array(
             'entity'      => $entity,
@@ -243,10 +249,12 @@ class ActivityController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
+    private function createDeleteForm($id, $person)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('chill_activity_activity_delete', array('id' => $id)))
+            ->setAction($this->generateUrl(
+                'chill_activity_activity_delete',
+                array('id' => $id, 'person_id' => $person->getId())))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

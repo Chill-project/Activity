@@ -15,10 +15,10 @@ class ActivityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
+            ->add('date', 'date', array('widget' => 'single_text', 'format' => 'dd-MM-yyyy'))
             ->add('durationTime')
             ->add('remark')
-            ->add('attendee')
+            ->add('attendee', 'checkbox', array('required' => false))
             ->add('user')
             //->add('scope')
             //->add('reason')
