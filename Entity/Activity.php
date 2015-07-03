@@ -25,11 +25,13 @@ use Chill\MainBundle\Entity\User;
 use Chill\ActivityBundle\Entity\ActivityReason;
 use Chill\ActivityBundle\Entity\ActivityType;
 use Chill\PersonBundle\Entity\Person;
+use Chill\MainBundle\Entity\HasCenterInterface;
+use Chill\MainBundle\Entity\HasScopeInterface;
 
 /**
  * Activity
  */
-class Activity
+class Activity implements HasCenterInterface, HasScopeInterface
 {
     /**
      * @var integer
@@ -306,6 +308,18 @@ class Activity
     public function getPerson()
     {
         return $this->person;
+    }
+    
+    /**
+     * get the center
+     * 
+     * center is extracted from person
+     * 
+     * @return \Chill\MainBundle\Entity\Center
+     */
+    public function getCenter()
+    {
+        return $this->person->getCenter();
     }
 }
 

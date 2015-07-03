@@ -46,11 +46,17 @@ class ChillActivityExtension extends Extension implements PrependExtensionInterf
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
+    
+    public function prepend(ContainerBuilder $container)
+    {
+        $this->prependRoutes($container);
+        $this->prependAuthorization($container);
+    }
 
     /* (non-PHPdoc)
      * @see \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface::prepend()
      */
-    public function prepend(ContainerBuilder $container) 
+    public function prependRoutes(ContainerBuilder $container) 
     {
         //add routes for custom bundle
          $container->prependExtensionConfig('chill_main', array(
@@ -58,6 +64,16 @@ class ChillActivityExtension extends Extension implements PrependExtensionInterf
               'resources' => array(
                  '@ChillActivityBundle/Resources/config/routing.yml'
               )
+           )
+        ));
+    }
+    
+    public function prependAuthorization(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('security', array(
+           'role_hierarchy' => array(
+              'CHILL_ACTIVITY_UPDATE' => array('CHILL_ACTIVITY_SEE'),
+              'CHILL_ACTIVITY_CREATE' => array('CHILL_ACTIVITY_SEE')
            )
         ));
     }

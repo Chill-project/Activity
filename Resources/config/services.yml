@@ -29,3 +29,10 @@ services:
             - "@chill.main.helper.translatable_string"
         tags:
             - { name: form.type, alias: chill_activitybundle_activity }
+            
+    chill.activity.security.authorization.activity_voter:
+        class: Chill\ActivityBundle\Security\Authorization\ActivityVoter
+        arguments:
+            - "@chill.main.security.authorization.helper"
+        tags:
+            - { name: security.voter }
