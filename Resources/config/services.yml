@@ -6,6 +6,20 @@ services:
         tags:
             - { name: form.type, alias: translatable_activity_reason_category }
             
+    chill.activity.form.type.translatableactivityreason:
+        class: Chill\ActivityBundle\Form\Type\TranslatableActivityReason
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: form.type, alias: translatable_activity_reason }
+            
+    chill.activity.form.type.translatableactivitytype:
+        class: Chill\ActivityBundle\Form\Type\TranslatableActivityType
+        arguments:
+            - "@request_stack"
+        tags:
+            - { name: form.type, alias: translatable_activity_type }
+            
     chill.activity.form.type.activity:
         class: Chill\ActivityBundle\Form\ActivityType
         arguments:

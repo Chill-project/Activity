@@ -81,9 +81,9 @@ class ActivityType extends AbstractType
                )
             ))
             ->add('user')
-            //->add('scope')
-            //->add('reason')
-            //->add('type')
+            ->add('scope')
+            ->add('reason', 'translatable_activity_reason')
+            ->add('type', 'translatable_activity_type')
             //->add('person')
         ;
         
