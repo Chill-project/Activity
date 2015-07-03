@@ -43,14 +43,23 @@ class LoadActivityReason extends AbstractFixture implements OrderedFixtureInterf
     {
         $reasons = [
             [
-                'name' => ['fr' => 'Reason 1 - FR', 'en' => 'Reason 1 - EN', 'nl' => 'Reason 1 - NL'],
-                'category' => 'activity_reason_category_0'],
+                'name' => ['fr' => 'Recherche logement', 'en' => 'Housing research', 'nl' => 'Woning zoektoch'],
+                'category' => 'cat_Housing'],
             [
-                'name' => ['fr' => 'Reason 2 - FR', 'en' => 'Reason 2 - EN', 'nl' => 'Reason 2 - NL'],
-                'category' => 'activity_reason_category_1'],
+                'name' => ['fr' => 'Problème avec propriétaire', 'en' => 'Landlord problems', 'nl' => 'Huisbaas problemen'],
+                'category' => 'cat_Housing'],
             [
-                'name' => ['fr' => 'Reason 2 - FR', 'en' => 'Reason 2 - EN', 'nl' => 'Reason 2 - NL'],
-                'category' => 'activity_reason_category_2']
+                'name' => ['fr' => 'Retard de payement', 'en' => 'Payement problems', 'nl' => 'Betalings vertragingen'],
+                'category' => 'cat_Housing'],
+            [
+                'name' => ['fr' => 'Explication législation', 'en' => 'Legislation explanation', 'nl' => 'Legislative uitleg'],
+                'category' => 'cat_Unemployment procedure'],
+            [
+                'name' => ['fr' => 'Coaching entretien d\'activation', 'en' => 'Interview coaching', 'nl' => 'Interview coaching'],
+                'category' => 'cat_Unemployment procedure'],
+            [
+                'name' => ['fr' => 'Récupération des allocations', 'en' => 'Allowance recovery', 'nl' => 'Terugwinning van de uitkeringen'],
+                'category' => 'cat_Unemployment procedure']
         ];
         
         foreach ($reasons as $r) {

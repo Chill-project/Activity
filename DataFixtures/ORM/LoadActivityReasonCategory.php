@@ -42,21 +42,19 @@ class LoadActivityReasonCategory extends AbstractFixture implements OrderedFixtu
     {
         $categs = [
             ['name' =>
-                ['fr' => 'Reason Cat 1 - FR', 'en' => 'Reason Cat 1 - EN', 'nl' => 'Reason Cat 1 - NL']],
+                ['fr' => 'Logement', 'en' => 'Housing', 'nl' => 'Woning']],
             ['name' =>
-                ['fr' => 'Reason Cat 2 - FR', 'en' => 'Reason Cat 2 - EN', 'nl' => 'Reason Cat 2 - NL']],
-            ['name' =>
-                ['fr' => 'Reason Cat 2 - FR', 'en' => 'Reason Cat 2 - EN', 'nl' => 'Reason Cat 2 - NL']]
+                ['fr' => 'Démarches chômage', 'en' => 'Unemployment procedure', 'nl' => 'Werkloosheid werkwijze']],
         ];
             
-        foreach ($categs as $i => $c) {
+        foreach ($categs as $c) {
             print "Creating activity reason category : " . $c['name']['en'] . "\n";
             $activityReasonCategory = (new ActivityReasonCategory())
                 ->setName(($c['name']))
                 ->setActive(true);
             $manager->persist($activityReasonCategory);
             $this->addReference(
-              'activity_reason_category_'.$i, 
+              'cat_'.$c['name']['en'],
               $activityReasonCategory);
         }
         
