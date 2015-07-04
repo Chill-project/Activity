@@ -67,7 +67,7 @@ class ActivityType extends AbstractType
                'widget' => 'single_text', 
                'format' => 'dd-MM-yyyy')
             )
-            ->add('durationTime')
+            ->add('durationTime', 'time')
             ->add('remark', 'textarea', array(
                'required' => false,
                'empty_data' => ''
