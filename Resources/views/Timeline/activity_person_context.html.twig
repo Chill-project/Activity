@@ -1,0 +1,13 @@
+<div class="activity">
+    <h3>{{ 'Activity'|trans }}</h3>
+    <div class="statement">
+        <span class="statement">{{ '%user% has done an %activity_type% on %date%'|trans(
+           { 
+             '%user%' : user, 
+             '%activity_type%': activity.type.name|localize_translatable_string, 
+             '%date%' : activity.date|localizeddate('long', 'none') }
+        ) }}</span> <span class="links"><a href="{{ path('chill_activity_activity_show', 
+        { 'person_id': person.id, 'id': activity.id} ) }}">{{ 'View the activity'|trans }}</a></span>
+        
+    </div>
+</div>

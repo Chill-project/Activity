@@ -1,0 +1,5 @@
+#timeline
+'%user% has done an %activity_type% on %date%': %user% a effectué une activité de type "%activity_type%" le %date%
+Activity: Activité
+View the activity: Voir l'activité
+

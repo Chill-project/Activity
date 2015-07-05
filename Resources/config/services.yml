@@ -36,3 +36,13 @@ services:
             - "@chill.main.security.authorization.helper"
         tags:
             - { name: security.voter }
+            
+            
+    chill.activity.timeline:
+        class: Chill\ActivityBundle\Timeline\TimelineActivityProvider
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@chill.main.security.authorization.helper'
+            - '@security.token_storage'
+        tags:
+            - { name: chill.timeline, context: 'person' }
