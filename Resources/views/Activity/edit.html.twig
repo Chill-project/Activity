@@ -21,16 +21,7 @@
 {% block title %}{{ 'Activity edit' |trans }}{% endblock title %}
 
 {% block personcontent %}
-    <h1>Activity edit</h1>
-
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('chill_activity_activity_list', {'person_id': person.id}) }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    {# {{ form(delete_form) }} #}
 {% endblock %}
