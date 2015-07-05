@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ActivityReasonControllerTest extends WebTestCase
 {
+    public function testToWrite()
+    {
+        $this->markTestSkipped();
+    }
     /*
     public function testCompleteScenario()
     {
