@@ -38,8 +38,8 @@
         {% for activity in activities %}
             <tr>
                 <td><a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">{{ activity.id }}</a></td>
-                <td>{% if activity.date %}{{ activity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ activity.durationTime }}</td>
+                <td>{% if activity.date %}{{ activity.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ activity.durationTime|date('H:i') }}</td>
                 <td>{{ activity.remark }}</td>
                 <td>{{ activity.attendee }}</td>
                 <td>
