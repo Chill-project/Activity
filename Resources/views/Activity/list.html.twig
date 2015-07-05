@@ -28,7 +28,6 @@
                 <th>{{'Duration Time' | trans }}</th>
                 <th>{{'Reason' | trans}}</th>
                 <th>{{'Type' | trans}}</th>
-                <th>{{'Attendee' | trans }}</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -40,7 +39,6 @@
                 <td>{{ activity.durationTime|date('H:i') }}</td>
                 <td>{{ activity.reason.name | localize_translatable_string }}</td>
                 <td>{{ activity.type.name | localize_translatable_string }}</td>
-                <td>{{ activity.attendee }}</td>
                 <td>
                     <a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">{{ 'Show the activity' | trans }}</a>
                 </td>

@@ -3,6 +3,8 @@
 {% set activeRouteKey = 'chill_activity_activity_list' %}
 
 {% block personcontent -%}
+    <h1>{{ "Activity"|trans }}</h1>
+    
     <a href="{{ path('chill_activity_activity_edit', { 'id': entity.id, 'person_id': person.id }) }}">
         <i class="fa fa-pencil"></i> {{ 'Edit the activity'|trans }}
     </a>
@@ -23,9 +25,9 @@
         <dt class="inline">{{ 'Type'|trans }}</dt>
         <dd>{{ entity.type.name | localize_translatable_string }}</dd>
         <dt class="inline">{{ 'Attendee'|trans }}</dt>
-        <dd>{{ entity.attendee }}</dd>
+        <dd>{% if entity.attendee is not null %}{% if entity.attendee %}{{ 'present'|trans|capitalize }} {% else %} {{ 'not present'|trans|capitalize }}{% endif %}{% else %}{{ 'None'|trans|capitalize }}{% endif %}</dd>
         <dt class="inline">{{ 'Remark'|trans }}</dt>
-        <dd>{{ entity.remark }}</dd>
+        <dd>{% if entity.remark is empty %}{{ 'No remarks'|trans }}{% else %}<pre>{{ entity.remark }}</pre>{% endif %}</dd>
         <dt class="inline">{{ ''|trans }}</dt>
         <dd></dd>
         <dt class="inline">{{ ''|trans }}</dt>
