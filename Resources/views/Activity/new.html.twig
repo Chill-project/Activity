@@ -21,14 +21,14 @@
 {% block title %}{{ 'Activity create' |trans }}{% endblock title %}
 
 {% block personcontent %}
-    <h1>Activity creation</h1>
+    <h1>{{ "Activity creation"|trans }}</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('chill_activity_activity_list', {'person_id': person.id}) }}">
-            Back to the list
+            {{ "Back to the list" | trans }}
         </a>
     </li>
 </ul>

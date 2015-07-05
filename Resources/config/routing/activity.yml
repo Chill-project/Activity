@@ -18,7 +18,7 @@ chill_activity_activity_new:
         menus:
             person:
                 order: 200
-                label: Add an activity
+                label: Add a new activity
 
 chill_activity_activity_create:
     path:     /{_locale}/person/{person_id}/activity/create
