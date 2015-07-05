@@ -80,11 +80,24 @@ class ActivityController extends Controller
             
             $em->persist($entity);
             $em->flush();
+            
+            $this->get('session')
+                ->getFlashBag()
+                ->add('success', 
+                    $this->get('translator')
+                        ->trans('Success : activity created!')
+                );
 
             return $this->redirect(
                 $this->generateUrl('chill_activity_activity_show',
                 array('id' => $entity->getId(), 'person_id' => $person_id)));
         }
+        
+        $this->get('session')
+            ->getFlashBag()->add('danger',
+                $this->get('translator')
+                    ->trans('The form is not valid. The activity has not been created !')
+            );
 
         return $this->render('ChillActivityBundle:Activity:new.html.twig', array(
             'entity' => $entity,
@@ -112,8 +125,6 @@ class ActivityController extends Controller
                 'role'   => new Role('CHILL_ACTIVITY_CREATE')
             )
         );
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -233,8 +244,6 @@ class ActivityController extends Controller
             'role'   => new Role('CHILL_ACTIVITY_UPDATE')
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
     /**
@@ -260,9 +269,23 @@ class ActivityController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
+            
+            $this->get('session')
+                ->getFlashBag()
+                ->add('success', 
+                    $this->get('translator')
+                        ->trans('Success : activity updated!')
+                );
 
-            return $this->redirect($this->generateUrl('chill_activity_activity_edit', array('id' => $id, 'person_id' => $person_id)));
+            return $this->redirect($this->generateUrl('chill_activity_activity_show', array('id' => $id, 'person_id' => $person_id)));
         }
+        
+        $this->get('session')
+            ->getFlashBag()
+            ->add('danger',
+                $this->get('translator')
+                    ->trans('The form is not valid. The activity has not been updated !')
+            );
 
         return $this->render('ChillActivityBundle:Activity:edit.html.twig', array(
             'entity'      => $entity,
