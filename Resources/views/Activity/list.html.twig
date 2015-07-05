@@ -21,47 +21,40 @@
 {% block title %}{{ 'Activity list' |trans }}{% endblock title %}
 
 {% block personcontent %}
-    <h1>Activity list</h1>
-
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Durationtime</th>
-                <th>Remark</th>
-                <th>Attendee</th>
-                <th>Actions</th>
+                <th>{{'Date' | trans }}</th>
+                <th>{{'Duration Time' | trans }}</th>
+                <th>{{'Reason' | trans}}</th>
+                <th>{{'Type' | trans}}</th>
+                <th>{{'Attendee' | trans }}</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for activity in activities %}
             <tr>
-                <td><a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">{{ activity.id }}</a></td>
-                <td>{% if activity.date %}{{ activity.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if activity.date %}{{ activity.date|localizeddate('long', 'none') }}{% endif %}</td>
                 <td>{{ activity.durationTime|date('H:i') }}</td>
-                <td>{{ activity.remark }}</td>
+                <td>{{ activity.reason.name | localize_translatable_string }}</td>
+                <td>{{ activity.type.name | localize_translatable_string }}</td>
                 <td>{{ activity.attendee }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('chill_activity_activity_edit', { 'id': activity.id, 'person_id': person.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <a href="{{ path('chill_activity_activity_show', { 'id': activity.id, 'person_id': person.id }) }}">{{ 'Show the activity' | trans }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('chill_activity_activity_edit', { 'id': activity.id, 'person_id': person.id }) }}">{{ 'Edit the report' | trans }}</a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('chill_activity_activity_new', {'person_id': person.id}) }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+    <p>
+        <a href="{{ path('chill_activity_activity_new', {'person_id': person.id}) }}">
+            {{ 'Add a new activity' | trans }}
+        </a>
+    </p>
 {% endblock %}
