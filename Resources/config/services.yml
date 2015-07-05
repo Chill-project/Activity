@@ -9,7 +9,7 @@ services:
     chill.activity.form.type.translatableactivityreason:
         class: Chill\ActivityBundle\Form\Type\TranslatableActivityReason
         arguments:
-            - "@request_stack"
+            - "@chill.main.helper.translatable_string"
         tags:
             - { name: form.type, alias: translatable_activity_reason }
             

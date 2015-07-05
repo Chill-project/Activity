@@ -25,6 +25,7 @@ namespace Chill\ActivityBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Chill\MainBundle\Templating\TranslatableStringHelper;
 
 /**
  * Description of TranslatableActivityReason
@@ -33,14 +34,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class TranslatableActivityReason extends AbstractType
 {
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
     
-    public function __construct(RequestStack $requestStack)
+    private $translatableStringHelper;
+    
+    public function __construct(TranslatableStringHelper $translatableStringHelper)
     {
-        $this->requestStack = $requestStack;
+        $this->translatableStringHelper = $translatableStringHelper;
     }
     
     public function getName()
@@ -55,11 +54,16 @@ class TranslatableActivityReason extends AbstractType
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $locale = $this->requestStack->getCurrentRequest()->getLocale();
+        $helper = $this->translatableStringHelper;
         $resolver->setDefaults(
             array(
                 'class' => 'ChillActivityBundle:ActivityReason',
-                'property' => 'name['.$locale.']'
+                'choice_label' => function($choice, $key) use ($helper) {
+                    return $helper->localize($choice->getName());
+                },
+                'group_by' => function($choice, $key) use ($helper) {
+                    return $helper->localize($choice->getCategory()->getName());
+                }
             )
         );
     }
