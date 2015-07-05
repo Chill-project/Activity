@@ -2,3 +2,4 @@
 composer.lock
 Tests/Fixtures/App/app/DoctrineMigrations/*
 Test/Fixtures/App/app/cache/*
+Test/Fixtures/App/app/config/parameters.yml
