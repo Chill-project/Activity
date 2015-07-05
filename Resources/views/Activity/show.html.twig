@@ -3,44 +3,38 @@
 {% set activeRouteKey = 'chill_activity_activity_list' %}
 
 {% block personcontent -%}
-    <h1>Activity</h1>
+    <a href="{{ path('chill_activity_activity_edit', { 'id': entity.id, 'person_id': person.id }) }}">
+        <i class="fa fa-pencil"></i> {{ 'Edit the activity'|trans }}
+    </a>
+    
+    <dl>
+        <dt class="inline">{{ 'Person'|trans }}</dt>
+        <dd>{{ entity.person }}</dd>
+        <dt class="inline">{{ 'Scope'|trans }}</dt>
+        <dd><span class="scope">{{ entity.scope.name|localize_translatable_string }}</span></dd>
+        <dt class="inline">{{ 'Date'|trans }}</dt>
+        <dd>{{ entity.date|localizeddate('long', 'none') }}</dd>
+        <dt class="inline">{{ 'Duration Time'|trans }}</dt>
+        <dd>{{ entity.durationTime|date('H:i') }}</dd>
+        <dt class="inline">{{ 'User'|trans }}</dt>
+        <dd>{{ entity.user }}</dd>
+        <dt class="inline">{{ 'Reason'|trans }}</dt>
+        <dd>{{ entity.reason.name | localize_translatable_string }}</dd>
+        <dt class="inline">{{ 'Type'|trans }}</dt>
+        <dd>{{ entity.type.name | localize_translatable_string }}</dd>
+        <dt class="inline">{{ 'Attendee'|trans }}</dt>
+        <dd>{{ entity.attendee }}</dd>
+        <dt class="inline">{{ 'Remark'|trans }}</dt>
+        <dd>{{ entity.remark }}</dd>
+        <dt class="inline">{{ ''|trans }}</dt>
+        <dd></dd>
+        <dt class="inline">{{ ''|trans }}</dt>
+        <dd></dd>
+    </dl>
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ entity.date|localizeddate('long', 'none') }}</td>
-            </tr>
-            <tr>
-                <th>Durationtime</th>
-                <td>{{ entity.durationTime|date('H:i') }}</td>
-            </tr>
-            <tr>
-                <th>Remark</th>
-                <td>{{ entity.remark }}</td>
-            </tr>
-            <tr>
-                <th>Attendee</th>
-                <td>{{ entity.attendee }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('chill_activity_activity_list', { 'person_id': person.id }) }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('chill_activity_activity_edit', { 'id': entity.id, 'person_id': person.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <a href="{{ path('chill_activity_activity_edit', { 'id': entity.id, 'person_id': person.id }) }}">
+        <i class="fa fa-pencil"></i> {{ 'Edit the activity'|trans }}
+    </a>
+            
+    {{ form(delete_form) }}
 {% endblock personcontent %}
