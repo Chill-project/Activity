@@ -26,4 +26,9 @@ Reset form: Remise à zéro du formulaire
 #timeline
 '%user% has done an %activity_type% on %date%': %user% a effectué une activité de type "%activity_type%" le %date%
 
+#controller
+'Success : activity created!': Bravo ! L'activité a été créée.
+'The form is not valid. The activity has not been created !': Le formulaire est invalide. L'activité n'a pas été créée.
+'Success : activity updated!': Bravo ! L'activité a été mise à jour.
+'The form is not valid. The activity has not been updated !': Le formulaire est invalide. L'activité n'a pas été mise à jour.
 
