@@ -38,6 +38,8 @@ class LoadActivityType extends AbstractFixture implements OrderedFixtureInterfac
     {
         return 16100;
     }
+    
+    public static $references = array();
 
     public function load(ObjectManager $manager)
     {
@@ -55,6 +57,9 @@ class LoadActivityType extends AbstractFixture implements OrderedFixtureInterfac
             $activityType = (new ActivityType())
                 ->setName(($t['name']));
             $manager->persist($activityType);
+            $reference = 'activity_type_'.$t['name']['en'];
+            $this->addReference($reference, $activityType);
+            static::$references[] = $reference;
         }
         
         $manager->flush();

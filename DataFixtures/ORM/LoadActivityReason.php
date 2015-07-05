@@ -39,6 +39,8 @@ class LoadActivityReason extends AbstractFixture implements OrderedFixtureInterf
         return 16300;
     }
     
+    public static $references = array();
+    
     public function load(ObjectManager $manager)
     {
         $reasons = [
@@ -69,6 +71,9 @@ class LoadActivityReason extends AbstractFixture implements OrderedFixtureInterf
                 ->setActive(true)
                 ->setCategory($this->getReference($r['category']));
             $manager->persist($activityReason);
+            $reference = 'activity_reason_'.$r['name']['en'];
+            $this->addReference($reference, $activityReason);
+            static::$references[] = $reference;
         }
         
         $manager->flush();
