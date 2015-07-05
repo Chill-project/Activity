@@ -241,10 +241,11 @@ class ActivityController extends Controller
      * Edits an existing Activity entity.
      *
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, $person_id, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
+        $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         $entity = $em->getRepository('ChillActivityBundle:Activity')->find($id);
 
         if (!$entity) {
@@ -253,14 +254,14 @@ class ActivityController extends Controller
         
         $this->denyAccessUnlessGranted('CHILL_ACTIVITY_UPDATE', $entity);
 
-        $deleteForm = $this->createDeleteForm($id);
+        $deleteForm = $this->createDeleteForm($id, $person);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('chill_activity_activity_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chill_activity_activity_edit', array('id' => $id, 'person_id' => $person_id)));
         }
 
         return $this->render('ChillActivityBundle:Activity:edit.html.twig', array(
