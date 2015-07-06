@@ -24,9 +24,7 @@ namespace Chill\ActivityBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Chill\ActivityBundle\Entity\Activity;
-use Chill\ActivityBundle\Form\ActivityType;
 use Symfony\Component\Security\Core\Role\Role;
 use Chill\PersonBundle\Entity\Person;
 
@@ -45,7 +43,14 @@ class ActivityController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
-        $activities = $em->getRepository('ChillActivityBundle:Activity')->findAll();
+        
+        $reachableScopes = $this->get('chill.main.security.authorization.helper')
+            ->getReachableScopes($this->getUser(), new Role('CHILL_ACTIVITY_SEE'),
+            $person->getCenter());
+        
+        $activities = $em->getRepository('ChillActivityBundle:Activity')
+                ->findBy(array('person' => $person, 'scope' => $reachableScopes));
+       
 
         return $this->render('ChillActivityBundle:Activity:list.html.twig', array(
             'activities' => $activities,
