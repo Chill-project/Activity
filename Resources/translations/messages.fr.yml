@@ -32,3 +32,7 @@ Reset form: Remise à zéro du formulaire
 'Success : activity updated!': Bravo ! L'activité a été mise à jour.
 'The form is not valid. The activity has not been updated !': Le formulaire est invalide. L'activité n'a pas été mise à jour.
 
+# CONTROLLER
+CHILL_ACTIVITY_CREATE: Créer une activité
+CHILL_ACTIVITY_UPDATE: Modifier une activité
+CHILL_ACTIVITY_SEE: Voir une activité
