@@ -16,7 +16,7 @@ class ActivityReasonType extends AbstractType
     {
         $builder
             ->add('name', 'translatable_string')
-            ->add('active')
+            ->add('active', 'checkbox', array('required' => false))
             ->add('category', 'translatable_activity_reason_category')
         ;
     }
