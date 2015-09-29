@@ -3,7 +3,7 @@ chill_activity_activityreason:
     defaults: { _controller: "ChillActivityBundle:ActivityReason:index" }
     options:
         menus:
-            admin: 
+            admin_activity: 
                 order: 2000
                 label: "Activity Reasons"
 

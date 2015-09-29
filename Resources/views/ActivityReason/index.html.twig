@@ -14,33 +14,29 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #}
-{% extends "ChillMainBundle::Admin/layout.html.twig" %}
+{% extends "ChillActivityBundle::Admin/layout_activity.html.twig" %}
 
 {% block admin_content %}
-    <h1>ActivityReason list</h1>
+    <h1>{{ 'ActivityReason list'|trans }}</h1>
 
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Active</th>
-                <th>Actions</th>
+                <th>{{ 'Name'|trans }}</th>
+                <th>{{ 'Actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name|localize_translatable_string }}</td>
-                <td>{{ entity.active }}</td>
+            <tr class="{% if entity.active %}active{% else %}inactive{% endif %}">
+                <td><a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">{{ entity.name|localize_translatable_string }}</a></td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('chill_activity_activityreason_show', { 'id': entity.id }) }}">{{ 'show'|trans }}</a>
                     </li>
                     <li>
-                        <a href="{{ path('chill_activity_activityreason_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('chill_activity_activityreason_edit', { 'id': entity.id }) }}">{{ 'edit'|trans }}</a>
                     </li>
                 </ul>
                 </td>
@@ -52,7 +48,7 @@
         <ul>
         <li>
             <a href="{{ path('chill_activity_activityreason_new') }}">
-                Create a new entry
+                {{ 'Create a new activity reason'|trans }}
             </a>
         </li>
     </ul>

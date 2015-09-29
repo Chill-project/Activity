@@ -14,17 +14,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #}
-{% extends "ChillMainBundle::Admin/layout.html.twig" %}
+{% extends "ChillActivityBundle::Admin/layout_activity.html.twig" %}
 
 {% block admin_content %}
-    <h1>ActivityReason creation</h1>
+    <h1>{{ 'ActivityReason creation'|trans }}</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.active) }}
+    {{ form_row(form.category) }}
+    {{ form_row(form.submit, { 'attr': { 'class' : 'sc-button green' } } ) }}
+    {{ form_end(form) }}
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('chill_activity_activityreason') }}">
-            Back to the list
+            {{ 'Back to the list'|trans }}
         </a>
     </li>
 </ul>

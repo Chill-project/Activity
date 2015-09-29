@@ -3,7 +3,7 @@ chill_activity_activitytype:
     defaults: { _controller: "ChillActivityBundle:ActivityType:index" }
     options:
         menus:
-            admin: 
+            admin_activity: 
                 order: 2020
                 label: "Activity Types"
 
