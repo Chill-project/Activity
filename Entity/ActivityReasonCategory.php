@@ -20,6 +20,8 @@
 
 namespace Chill\ActivityBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * ActivityReasonCategory
  */
@@ -40,12 +42,18 @@ class ActivityReasonCategory
      */
     private $active;
     
+    /** @var ArrayCollection array of ActivityReason */
+    private $reasons;
+    
+    public function __construct()
+    {
+        $this->reasons = new ArrayCollection();
+    }
     
     public function __toString()
     {
-        return 'blop';
+        return 'ActivityReasonCategory('.$this->getName('x').')';
     }
-
 
     /**
      * Get id
@@ -95,16 +103,23 @@ class ActivityReasonCategory
     }
 
     /**
-     * Set active
+     * Declare a category as active (or not). When a category is set
+     * as unactive, all the reason have this entity as category is also
+     * set as unactive
      *
      * @param boolean $active
-     *
      * @return ActivityReasonCategory
      */
     public function setActive($active)
     {
+        if($this->active !== $active && !$active) {
+            foreach ($this->reasons as $reason) {
+                $reason->setActive($active);
+            }
+        }
+        
         $this->active = $active;
-
+        
         return $this;
     }
 

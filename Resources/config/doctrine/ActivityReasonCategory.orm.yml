@@ -12,4 +12,8 @@ Chill\ActivityBundle\Entity\ActivityReasonCategory:
             type: json_array
         active:
             type: boolean
+    oneToMany:
+        reasons:
+            targetEntity: Chill\ActivityBundle\Entity\ActivityReason
+            mappedBy: category
     lifecycleCallbacks: {  }
