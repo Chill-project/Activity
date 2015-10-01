@@ -96,7 +96,8 @@ class ActivityReason
     }
     
     /**
-     * Set category
+     * Set category of the reason. If you set to the reason an inactive
+     * category, the reason will become inactive
      *
      * @param ActivityReasonCategory $category
      *
@@ -104,6 +105,10 @@ class ActivityReason
      */
     public function setCategory(ActivityReasonCategory $category)
     {
+        if($this->category !== $category && ! $category->getActive()) {
+            $this->setActive(False);
+        }
+        
         $this->category = $category;
 
         return $this;
