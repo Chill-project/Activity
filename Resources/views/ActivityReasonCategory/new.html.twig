@@ -17,14 +17,18 @@
 {% extends "ChillActivityBundle::Admin/layout_activity.html.twig" %}
 
 {% block admin_content %}
-    <h1>ActivityReasonCategory creation</h1>
+    <h1>{{ 'ActivityReasonCategory creation'|trans }}</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.active) }}
+    {{ form_widget(form.submit, { 'attr': { 'class' : 'sc-button blue' } } ) }}
+    <p>{{ form_end(form) }}</p>
 
         <ul class="record_actions">
     <li>
         <a href="{{ path('chill_activity_activityreasoncategory') }}">
-            Back to the list
+            {{ 'Back to the list'|trans }}
         </a>
     </li>
 </ul>

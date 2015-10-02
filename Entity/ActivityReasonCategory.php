@@ -40,7 +40,7 @@ class ActivityReasonCategory
     /**
      * @var boolean
      */
-    private $active;
+    private $active = true;
     
     /** @var ArrayCollection array of ActivityReason */
     private $reasons;

@@ -45,7 +45,7 @@ class ActivityReason
     /**
      * @var boolean
      */
-    private $active;
+    private $active = true;
 
 
     /**

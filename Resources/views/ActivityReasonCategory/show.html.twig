@@ -17,7 +17,7 @@
 {% extends "ChillActivityBundle::Admin/layout_activity.html.twig" %}
 
 {% block admin_content %}
-    <h1>ActivityReasonCategory</h1>
+    <h1>{{ 'ActivityReasonCategory'|trans }}</h1>
 
     <table class="record_properties">
         <tbody>
@@ -28,11 +28,11 @@
             <tr>
                 <th>{{ 'Active'|trans }}</th>
                 <td>
-                    {% if entity.active %}
-                        <p>{{ 'The entity is active and will be proposed'|trans }}</p>
-                    {% else %}
-                        <p>{{ "The entity is inactive and won't be proposed"|trans }}</p>
-                    {% endif %}
+                    {%- if entity.active -%}
+                        {{ 'ActivityReasonCategory is active and will be proposed'|trans }}
+                    {%- else -%}
+                        {{ "ActivityReasonCategory is inactive and won't be proposed"|trans }}
+                    {%- endif -%}
                 </td>
             </tr>
         </tbody>
@@ -41,14 +41,13 @@
         <ul class="record_actions">
     <li>
         <a href="{{ path('chill_activity_activityreasoncategory') }}">
-            Back to the list
+            {{ 'Back to the list'|trans }}
         </a>
     </li>
     <li>
         <a href="{{ path('chill_activity_activityreasoncategory_edit', { 'id': entity.id }) }}">
-            Edit
+            {{ 'Edit'|trans }}
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

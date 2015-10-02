@@ -41,7 +41,8 @@ CHILL_ACTIVITY_SEE: Voir une activité
 Activity configuration menu: Configuration des activités
 Activity Types: Types d'activité
 Activity Reasons: Sujets d'une activité
-Activity Reasons Category: Catégories d'activités
+Activity Reasons Category: Catégories de sujet d'activités
+Activity configuration: Configuration des activités
 
 # activity reason admin
 ActivityReason list: Liste des sujets
@@ -53,3 +54,12 @@ ActivityReason edit: Modification d'un sujet
 ActivityReason: Sujet d'activité
 The entity is inactive and won't be proposed: Le sujet est inactif et ne sera pas proposé
 The entity is active and will be proposed: Le sujet est actif et sera proposé
+
+#activity reason category admin
+ActivityReasonCategory list: Catégories de sujets
+Create a new activity category reason: Créer une nouvelle catégorie
+ActivityReasonCategory creation: Nouvelle catégorie de sujet
+ActivityReasonCategory edit: Modification d'une catégorie de sujet
+ActivityReasonCategory: Catégorie de sujet d'activité
+ActivityReasonCategory is active and will be proposed: La catégorie est active et sera proposée
+ActivityReasonCategory is inactive and won't be proposed: La catégorie est inactive et ne sera pas proposée
