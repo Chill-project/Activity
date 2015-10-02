@@ -25,6 +25,7 @@ namespace Chill\ActivityBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of TranslatableActivityReasonCategory
@@ -61,7 +62,11 @@ class TranslatableActivityReasonCategory extends AbstractType
         $resolver->setDefaults(
             array(
                 'class' => 'ChillActivityBundle:ActivityReasonCategory',
-                'property' => 'name['.$locale.']'
+                'property' => 'name['.$locale.']',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.active = true');
+                }
             )
         );
     }
