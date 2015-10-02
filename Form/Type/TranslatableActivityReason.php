@@ -24,8 +24,8 @@ namespace Chill\ActivityBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Chill\MainBundle\Templating\TranslatableStringHelper;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of TranslatableActivityReason
@@ -63,6 +63,10 @@ class TranslatableActivityReason extends AbstractType
                 },
                 'group_by' => function($choice, $key) use ($helper) {
                     return $helper->localize($choice->getCategory()->getName());
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('r')
+                        ->where('r.active = true');
                 }
             )
         );
