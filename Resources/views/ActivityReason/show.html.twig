@@ -26,14 +26,14 @@
                 <td>{{ entity.name|localize_translatable_string }}</td>
             </tr>
             <tr>
-                <th>{{ 'Active' }}</th>
+                <th>{{ 'Active'|trans }}</th>
                 <td>
                     {% if entity.active %}
                         <p>{{ 'The entity is active and will be proposed'|trans }}</p>
                     {% else %}
                         <p>{{ "The entity is inactive and won't be proposed"|trans }}</p>
                     {% endif %}
-                    </td>
+                </td>
             </tr>
         </tbody>
     </table>

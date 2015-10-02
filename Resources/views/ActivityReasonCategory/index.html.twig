@@ -22,37 +22,45 @@
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Active</th>
-                <th>Actions</th>
+                <th>{{ 'Name'|trans }}</th>
+                <th>{{ 'Active'|trans }}Active</th>
+                <th>{{ 'Actions'|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('chill_activity_activityreasoncategory_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name|localize_translatable_string }}</td>
-                <td>{{ entity.active }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('chill_activity_activityreasoncategory_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('chill_activity_activityreasoncategory_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <a href="{{ path('chill_activity_activityreasoncategory_show', { 'id': entity.id }) }}">
+                        {{ entity.name|localize_translatable_string }}
+                    </a>
+                </td>
+                <td>
+                    {% if entity.active %}
+                        <p>{{ 'Active'|trans }}</p>
+                    {% else %}
+                        <p>{{ "Inactive"|trans }}</p>
+                    {% endif %}
+                </td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('chill_activity_activityreasoncategory_show', { 'id': entity.id }) }}">{{'show'|trans}}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('chill_activity_activityreasoncategory_edit', { 'id': entity.id }) }}">{{'edit'|trans}}</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('chill_activity_activityreasoncategory_new') }}">
-                Create a new entry
+                {{'Create a new entry'|trans}}
             </a>
         </li>
     </ul>
