@@ -35,4 +35,9 @@ class AdminController extends Controller
     {
         return $this->render('ChillActivityBundle:Admin:layout_activity.html.twig');
     }
+    
+    public function redirectToAdminIndexAction()
+    {
+        return $this->redirectToRoute('chill_main_admin_central');
+    }
 }

@@ -23,12 +23,10 @@ chill_admin_activity_index:
                 label: Activity configuration
                 order: 2000
                 
-chill_admin_activity_back_to_admin:
-    path:     /{_locale}/admin/activity_back_to_main
+chill_admin_activity_redirect_to_admin_index:
+    path:     /{_locale}/admin/activity_redirect_to_main
     defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /{_locale}/admin
-        permanent: true
+        _controller: ChillActivityBundle:Admin:redirectToAdminIndex
     options:
         menus:
             admin_activity:
