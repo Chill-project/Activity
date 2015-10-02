@@ -63,3 +63,10 @@ ActivityReasonCategory edit: Modification d'une catégorie de sujet
 ActivityReasonCategory: Catégorie de sujet d'activité
 ActivityReasonCategory is active and will be proposed: La catégorie est active et sera proposée
 ActivityReasonCategory is inactive and won't be proposed: La catégorie est inactive et ne sera pas proposée
+
+# activity type admin
+ActivityType list: Types d'activités
+Create a new activity type: Créer un nouveau type d'activité
+ActivityType creation: Nouveau type d'activité
+ActivityType: Type d'activité
+ActivityType edit: Modifier une activité

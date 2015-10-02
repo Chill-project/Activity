@@ -101,11 +101,8 @@ class ActivityTypeController extends Controller
             throw $this->createNotFoundException('Unable to find ActivityType entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('ChillActivityBundle:ActivityType:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -124,12 +121,10 @@ class ActivityTypeController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ChillActivityBundle:ActivityType:edit.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'edit_form'   => $editForm->createView()
         ));
     }
 
@@ -164,8 +159,7 @@ class ActivityTypeController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ActivityType entity.');
         }
-
-        $deleteForm = $this->createDeleteForm($id);
+        
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
@@ -178,47 +172,6 @@ class ActivityTypeController extends Controller
         return $this->render('ChillActivityBundle:ActivityType:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
-    }
-    /**
-     * Deletes a ActivityType entity.
-     *
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ChillActivityBundle:ActivityType')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ActivityType entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('chill_activity_activitytype'));
-    }
-
-    /**
-     * Creates a form to delete a ActivityType entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('chill_activity_activitytype_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
     }
 }
