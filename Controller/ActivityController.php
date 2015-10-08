@@ -44,6 +44,12 @@ class ActivityController extends Controller
         $em = $this->getDoctrine()->getManager();
         $person = $em->getRepository('ChillPersonBundle:Person')->find($person_id);
         
+        if ($person === NULL) {
+            throw $this->createNotFoundException('Person not found');
+        }
+        
+        $this->denyAccessUnlessGranted('CHILL_PERSON_SEE', $person);
+        
         $reachableScopes = $this->get('chill.main.security.authorization.helper')
             ->getReachableScopes($this->getUser(), new Role('CHILL_ACTIVITY_SEE'),
             $person->getCenter());

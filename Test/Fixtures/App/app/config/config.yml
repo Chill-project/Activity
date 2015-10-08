@@ -67,6 +67,7 @@ security:
                 intention: authenticate
                 csrf_provider: form.csrf_provider
             logout: ~
+            http_basic: 
     access_control:
         #disable authentication for tests
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
