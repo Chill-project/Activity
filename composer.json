@@ -47,6 +47,6 @@
         ]
     },
     "extra": {
-        "app-migrations-dir": "Tests/Fixtures/App/app/DoctrineMigrations"
+        "app-migrations-dir": "Test/Fixtures/App/app/DoctrineMigrations"
     }
 }
