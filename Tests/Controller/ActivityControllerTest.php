@@ -3,6 +3,7 @@
 namespace Chill\ActivityBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Role\Role;
 
 class ActivityControllerTest extends WebTestCase
 {
@@ -41,9 +42,9 @@ class ActivityControllerTest extends WebTestCase
                     'minute' => '30'
                 ),
                'remark' => 'blabla',
-               'scope' => 1,
-               'reason' => 2,
-               'type'   => 3
+               'scope' => $this->getRandomScope('center a_social', 'Center A')->getId(),
+               'reason' => $this->getRandomActivityReason()->getId(),
+               'type'   => $this->getRandomActivityType()->getId()
             )
         ));
 
@@ -114,5 +115,64 @@ class ActivityControllerTest extends WebTestCase
         }
         
         return $person;
+    }
+    
+    /**
+     * 
+     * @param string $username
+     * @param string $centerName
+     * @return \Chill\MainBundle\Entity\Scope
+     */
+    private function getRandomScope($username, $centerName)
+    {
+        $user = static::$kernel->getContainer()
+              ->get('doctrine.orm.entity_manager')
+              ->getRepository('ChillMainBundle:User')
+              ->findOneByUsername($username);
+        
+        if ($user === NULL) {
+            throw new \RuntimeException("The user with username $username "
+                  . "does not exists in database. Did you add fixtures ?");
+        }
+        
+        $center = static::$kernel->getContainer()
+              ->get('doctrine.orm.entity_manager')
+              ->getRepository('ChillMainBundle:Center')
+              ->findOneByName($centerName);
+        
+        $reachableScopes = static::$kernel->getContainer()
+              ->get('chill.main.security.authorization.helper')
+              ->getReachableScopes($user, new Role('CHILL_ACTIVITY_UPDATE'), 
+                    $center);
+        
+        return $reachableScopes[array_rand($reachableScopes)];
+    }
+    
+    /**
+     * 
+     * @return \Chill\ActivityBundle\Entity\ActivityReason
+     */
+    private function getRandomActivityReason()
+    {
+        $reasons = static::$kernel->getContainer()
+              ->get('doctrine.orm.entity_manager')
+              ->getRepository('ChillActivityBundle:ActivityReason')
+              ->findAll();
+              
+        return $reasons[array_rand($reasons)];
+    }
+    
+    /**
+     * 
+     * @return \Chill\ActivityBundle\Entity\ActivityType
+     */
+    private function getRandomActivityType()
+    {
+        $types = static::$kernel->getContainer()
+              ->get('doctrine.orm.entity_manager')
+              ->getRepository('ChillActivityBundle:ActivityType')
+              ->findAll();
+        
+        return $types[array_rand($types)];
     }
 }
