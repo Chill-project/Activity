@@ -2,7 +2,7 @@ services:
    - chill/database:latest
  
 before_script:
-   - export GITHUB_COMPOSER_AUTH=$GITHUB_TOKEN
+   - composer config github-oauth.github.com $GITHUB_TOKEN
    - composer install --no-interaction
    - cp Test/Fixtures/App/app/config/parameters.gitlab-ci.yml Test/Fixtures/App/app/config/parameters.yml
 #   - php Test/Fixtures/App/app/console --env=test cache:warmup
