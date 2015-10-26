@@ -7,33 +7,41 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        return array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Chill\CustomFieldsBundle\ChillCustomFieldsBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Chill\MainBundle\ChillMainBundle(),
-            new Chill\CustomFieldsBundle\ChillCustomFieldsBundle(),
             new Chill\PersonBundle\ChillPersonBundle(),
+            new Chill\MainBundle\ChillMainBundle(),
             new Chill\ActivityBundle\ChillActivityBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            #add here all the required bundle (some bundle are not required)
         );
-
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-        }
-
-        return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    /**
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return sys_get_temp_dir().'/ActivityBundle/cache';
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogDir()
+    {
+        return sys_get_temp_dir().'/ActivityBundle/logs';
     }
 }
