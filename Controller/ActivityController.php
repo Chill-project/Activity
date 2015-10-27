@@ -160,6 +160,8 @@ class ActivityController extends Controller
         $entity->setPerson($person);
         $entity->setDate(new \DateTime('now'));
         
+        $this->denyAccessUnlessGranted('CHILL_ACTIVITY_CREATE', $entity);
+        
         $form   = $this->createCreateForm($entity, $person);
 
         return $this->render('ChillActivityBundle:Activity:new.html.twig', array(

@@ -4,21 +4,95 @@ namespace Chill\ActivityBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\HttpFoundation\Response;
 
 class ActivityControllerTest extends WebTestCase
 {
     
-    public function testAccessIsDeniedForUnauthenticated()
+    /**
+     * @dataProvider getSecuredPagesUnauthenticated
+     */
+    public function testAccessIsDeniedForUnauthenticated($url)
     {
         $client = $this->createClient();
-        
-        $crawler = $client->request('GET', sprintf('fr/person/%d/activity/', 
-              $this->getPersonFromFixtures()->getId()));
-        
+
+        $client->request('GET', $url);
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect('http://localhost/login'),
-              'the page does not redirect to http://localhost/login');
+              sprintf('the page "%s" does not redirect to http://localhost/login', $url));
     }
     
+    /**
+     * 
+     * @dataProvider getSecuredPagesAuthenticated
+     * @param type $client
+     * @param type $url
+     */
+    public function testAccessIsDeniedForUnauthorized($client, $url)
+    {
+        $client->request('GET', $url);
+
+        $this->assertEquals(403, $client->getResponse()->getStatusCode());
+    }
+    
+    public function getSecuredPagesAuthenticated()
+    {
+        static::bootKernel();
+        
+        $person = $this->getPersonFromFixtures();
+        $activities = $this->getActivitiesForPerson($person);
+        
+        
+        $user = $this->createFakeUser();  
+        
+        
+        
+        return array(
+            array(
+                $this->getAuthenticatedClient('center b_social'),
+                sprintf('fr/person/%d/activity/', $person->getId())
+            ),
+            array(
+                $this->getAuthenticatedClient('center b_social'),
+                sprintf('fr/person/%d/activity/new', $person->getId())
+            ),
+            array(
+                $this->getAuthenticatedClient('center b_social'),
+                sprintf('fr/person/%d/activity/%d/show', $person->getId(), $activities[0]->getId())
+            ),
+            array(
+                $this->getAuthenticatedClient('center b_social'),
+                sprintf('fr/person/%d/activity/%d/edit', $person->getId(), $activities[0]->getId())
+            ),
+            array(
+                $this->getAuthenticatedClient($user->getUsername()),
+                sprintf('fr/person/%d/activity/new', $person->getId())
+            )
+        );
+    }
+    
+    
+    
+    /**
+     * Provide a client unauthenticated and 
+     * 
+     */
+    public function getSecuredPagesUnauthenticated()
+    {
+        static::bootKernel();
+        $person = $this->getPersonFromFixtures();
+        $activities = $this->getActivitiesForPerson($person);
+        
+        return array(
+            [ sprintf('fr/person/%d/activity/', $person->getId()) ],
+            [ sprintf('fr/person/%d/activity/new', $person->getId()) ],
+            [ sprintf('fr/person/%d/activity/%d/show', $person->getId(), $activities[0]->getId()) ],
+            [ sprintf('fr/person/%d/activity/%d/edit', $person->getId(), $activities[0]->getId()) ],
+        );
+    }
+
+
     public function testCompleteScenario()
     {
         // Create a new client to browse the application
@@ -86,10 +160,10 @@ class ActivityControllerTest extends WebTestCase
      * 
      * @return \Symfony\Component\BrowserKit\Client
      */
-    private function getAuthenticatedClient()
+    private function getAuthenticatedClient($username = 'center a_social')
     {
         return static::createClient(array(), array(
-           'PHP_AUTH_USER' => 'center a_social',
+           'PHP_AUTH_USER' => $username,
            'PHP_AUTH_PW'   => 'password',
         ));
     }
@@ -115,6 +189,22 @@ class ActivityControllerTest extends WebTestCase
         }
         
         return $person;
+    }
+    
+    private function getActivitiesForPerson(\Chill\PersonBundle\Entity\Person $person)
+    {
+        $em = static::$kernel->getContainer()
+              ->get('doctrine.orm.entity_manager');
+        
+        $activities = $em->getRepository('ChillActivityBundle:Activity')
+                ->findBy(array('person' => $person));
+        
+        if (count($activities) === 0) {
+            throw new \RuntimeException("We need activities associated with this "
+                    . "person. Did you forget to add fixtures ?");
+        }
+        
+        return $activities;
     }
     
     /**
@@ -174,5 +264,53 @@ class ActivityControllerTest extends WebTestCase
               ->findAll();
         
         return $types[array_rand($types)];
+    }
+    
+    /**
+     * create a user without any permissions on CHILL_ACTIVITY_* but with 
+     * permissions on center.
+     * 
+     * @return \Chill\MainBundle\Entity\User a fake user within a group without activity
+     */
+    private function createFakeUser()
+    {
+        $container = static::$kernel->getContainer();
+        $em = $container->get('doctrine.orm.entity_manager');
+        
+        //get the social PermissionGroup, and remove CHILL_ACTIVITY_*
+        $socialPermissionGroup = $em
+                ->getRepository('ChillMainBundle:PermissionsGroup')
+                ->findOneByName('social');
+        $withoutActivityPermissionGroup = (new \Chill\MainBundle\Entity\PermissionsGroup())
+                ->setName('social without activity');
+        //copy role scopes where ACTIVITY is not present
+        foreach ($socialPermissionGroup->getRoleScopes() as $roleScope) {
+            if (!strpos($roleScope->getRole(), 'ACTIVITY')) {
+                $withoutActivityPermissionGroup->addRoleScope($roleScope);
+            }
+        }
+        //create groupCenter        
+        $groupCenter = new \Chill\MainBundle\Entity\GroupCenter();
+        $groupCenter->setCenter($em->getRepository('ChillMainBundle:Center')
+                ->findOneBy(array('name' => 'Center A')))
+                ->setPermissionsGroup($withoutActivityPermissionGroup);
+        $em->persist($withoutActivityPermissionGroup);
+        $em->persist($groupCenter);
+        
+        //create user
+        $faker = \Faker\Factory::create();
+        $username = $faker->name;
+        $user = new \Chill\MainBundle\Entity\User();
+        $user
+                ->setPassword($container->get('security.password_encoder')
+                        ->encodePassword($user, 'password'))
+                ->setUsername($username)
+                ->addGroupCenter($groupCenter);
+        
+        $em->persist($user);
+        
+        $em->flush();
+        
+        return $user;
     }
 }
