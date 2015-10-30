@@ -1,7 +1,8 @@
 # Activity
+
 The bundle for recording activities
 
+Documentation & installation
+============================
 
-Issue tracker : https://redmine.champs-libres.coop/projects/activity/issues
-
-Documentation: http://docs.chill.social
+Read documentation here : http://chill.readthedocs.org
