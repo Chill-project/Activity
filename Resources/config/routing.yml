@@ -13,16 +13,17 @@ chill_activity_activityreasoncategory:
 chill_activity_activitytype:
     resource: "@ChillActivityBundle/Resources/config/routing/activitytype.yml"
     prefix:   /
-    
+
 chill_admin_activity_index:
     path:     /{_locale}/admin/activity
     defaults: { _controller: ChillActivityBundle:Admin:indexActivity }
     options:
         menus:
-            admin:
+            admin_section:
                 label: Activity configuration
                 order: 2000
-                
+                icons: [tag]
+
 chill_admin_activity_redirect_to_admin_index:
     path:     /{_locale}/admin/activity_redirect_to_main
     defaults:
